@@ -16,8 +16,8 @@ namespace CFDSharpClassLibrary.PotentialFlow
         /// <returns>The velocity potential at the point r.</returns>
         public static double ComputeSteadyState(Vector3 r, IPointSource pointSource)
         {
-            double d = (pointSource.Position - r).Length();
-            double velocityPotential = -pointSource.Strength / (4 * Math.PI * d);
+            double d = (r - pointSource.Position).Length();
+            double velocityPotential = - pointSource.Strength / (4 * Math.PI * d);
             return velocityPotential;
         }
         /// <summary>

@@ -16,7 +16,7 @@ namespace CFDSharpClassLibrary.PotentialFlow
         /// <returns>The velocity at the point r.</returns>
         public static Vector3 ComputeSteadyState(Vector3 r, IPointSource pointSource)
         {
-            Vector3 dr = pointSource.Position - r;
+            Vector3 dr = r - pointSource.Position; // A vector pointing from the point source to r
             Vector3 velocityPotential = 
                 (float)(pointSource.Strength / (4 * Math.PI * dr.LengthSquared())) * dr;
             return velocityPotential;
