@@ -15,7 +15,7 @@ namespace CFDSharpClassLibrary.PotentialFlow.SourcePanelMethod
         /// <param name="vInf">
         /// A vector representing the far-field velocity (negative velocity of the panels).
         /// </param>
-        public static void MutateSourcePanelArrayIntoSolution(SourcePanel[] sourcePanels, Vector3 vInf)
+        public static void MutateSourcePanelArrayIntoSolution(ref SourcePanel[] sourcePanels, Vector3 vInf)
         {
 
         }
