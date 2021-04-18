@@ -1,0 +1,234 @@
+﻿\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\title{Derivations of aerodynamic equations}
+\author{siim.alas }
+\date{April 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Bla.
+
+\section{Potential Flow Theory}
+
+This section contains derivations of equations relating to \href{https://en.wikipedia.org/wiki/Potential_flow}{potential flow theory}, which describes \href{https://en.wikipedia.org/wiki/Flow_velocity}{flow velocity} $\vec{v}(\vec{r})$ at some point point $\vec{r}$ in space as the \href{https://en.wikipedia.org/wiki/Gradient}{gradient} of the \href{https://en.wikipedia.org/wiki/Velocity_potential}{velocity potential} $\phi(\vec{r})$ at that point. More succinctly, this is written as
+
+\begin{equation}
+    \label{eq:RelationOfVelocityAndVelocityPotential}
+    \vec{v}(\vec{r}) = \nabla \phi(\vec{r})
+\end{equation}
+
+\subsection{3D Source Panel Method}
+
+This subsection contains derivations of equations used in the 3D source panel method, which estimates the aerodynamic properties of a body in an \href{https://en.wikipedia.org/wiki/Inviscid_flow}{inviscid} flow.
+
+The body is approximated as an array of \href{https://en.wikipedia.org/wiki/Rectangle}{rectangular} panels, each of which is assumed to have constant \href{https://en.wikipedia.org/wiki/Velocity_potential}{velocity potential} source (or sink) strength across its surface.
+
+\subsubsection{The Effect of a Rectangular Source Panel on the Velocity Potential}
+
+The aforementioned rectangular panel is defined in 3D \href{https://en.wikipedia.org/wiki/Cartesian_coordinate_system}{Cartesian coordinates} by a \href{https://en.wikipedia.org/wiki/Position_(geometry)}{position vector} $\vec{r_0}$ (pointing to the centre of the rectangle), two \href{https://en.wikipedia.org/wiki/Orthonormality}{orthonormal} \href{https://en.wikipedia.org/wiki/Tangent_vector}{tangent vectors} $\hat{u}$ (\href{https://en.wikipedia.org/wiki/Parallel_(geometry)}{parallel} to one side of the rectangle) and $\hat{v}$ (parallel to the other side of the rectangle) as well as the dimensions $a$ (the length of the side parallel to $\hat{u}$) and $b$ (the length of the side parallel to $\hat{v}$).
+
+The effect of a point source ($Q > 0$) or sink ($Q < 0$) at position $\vec{r_0}$ on the velocity potential $\phi(\vec{r})$ at position $r$ is assumed to be
+
+\begin{equation}
+    \label{eq:EffectOfPointSourceOnVelocityPotential}
+    \phi(\vec{r}) = - \frac{Q}{4 \pi |\vec{r} - \vec{r_0}|}
+\end{equation}
+
+Modelling the source rectangle as consisting of an infinite series of such point sources, all of constant strength $Q$, yields the following \href{https://en.wikipedia.org/wiki/Surface_integral}{surface integral}:
+
+\begin{equation}
+    \label{eq:EffectOfARectangularSourcePanelOnVelocityPotential}
+    \phi(\vec{r}) = - \frac{Q}{4 \pi} \iint_S \frac{1}{|\vec{r} - \vec{r'}|} dS = - \frac{Q}{4 \pi} \iint_T \frac{1}{|\vec{r} - (\vec{r_0} + \hat{u} u + \hat{v} v)|} du dv
+\end{equation}
+
+where $\vec{r'} = \vec{r_0} + \hat{u} u + \hat{v} v$, $S = \{ \vec{r_0} + \hat{u} u + \hat{v} v | u, v \in T \}$, and $T = [- a / 2; a / 2] \times [- b / 2; b / 2]$. Note that in the above surface integral $|\frac{\partial \vec{r'}}{\partial u} \times \frac{\partial \vec{r'}}{\partial v}| = |\hat{u} \times \hat{v}| = 1$, since $\hat{u}$ and $\hat{v}$ are orthonormal.
+
+The denominator in the integrand can be simplified to
+
+\begin{multline*}
+    \sqrt{|\hat{u} u + \hat{v} v|^2 - 2 (\hat{u} u + \hat{v} v) \cdot (\vec{r} - \vec{r_0}) + |\vec{r} - \vec{r_0}|^2} = \\
+    = \sqrt{(\hat{u} \cdot \hat{u}) u^2 + 2 uv (\hat{u} \cdot \hat{v}) + (\hat{v} \cdot \hat{v}) v^2 - 2 (\hat{u} u + \hat{v} v) \cdot (\vec{r} - \vec{r_0}) + |\vec{r} - \vec{r_0}|^2} = \\
+    = \sqrt{u^2 + v^2 - 2 (\hat{u} u + \hat{v} v) \cdot (\vec{r} - \vec{r_0}) + |\vec{r} - \vec{r_0}|^2} = \\
+    = \sqrt{(u - \hat{u} \cdot (\vec{r} - \vec{r_0}))^2 + (v - \hat{v} \cdot (\vec{r} - \vec{r_0}))^2 + k}
+\end{multline*}
+
+where we defined $k = |\vec{r} - \vec{r_0}|^2 - (\hat{u} \cdot (\vec{r} - \vec{r_0}))^2 - (\hat{v} \cdot (\vec{r} - \vec{r_0}))^2$ and used the fact that, by definition, $\hat{u} \cdot \hat{u} = \hat{v} \cdot \hat{v} = 1$ and $\hat{u} \cdot \hat{v} = 0$.
+
+Changing variables in integral \ref{eq:EffectOfARectangularSourcePanelOnVelocityPotential} via $u - \hat{u} \cdot (\vec{r} - \vec{r_0}) = i u'$ and $v - \hat{v} \cdot (\vec{r} - \vec{r_0}) = i v'$, leading to the \href{https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant}{Jacobian determinant}
+
+\begin{equation*}
+    det(J) = det 
+    \left( 
+    \begin{bmatrix}
+    \frac{\partial u}{\partial u'} & \frac{\partial u}{\partial v'} \\
+    \frac{\partial v}{\partial u'} & \frac{\partial v}{\partial v'}
+    \end{bmatrix}
+    \right)
+    = det
+    \left( 
+    \begin{bmatrix}
+    i & 0 \\
+    0 & i
+    \end{bmatrix}
+    \right)
+    = i^2 - 0 = -1
+\end{equation*}
+
+we write the integral as
+
+\begin{equation*}
+    \frac{Q}{4 \pi} \iint_{T'} \frac{1}{\sqrt{k - u'^2 - v'^2}} du' dv'
+\end{equation*}
+
+where $T' = [u'_1; u'_2] \times [v'_1; v'_2] = [-i (- a / 2 - \hat{u} \cdot (\vec{r} - \vec{r_0})); -i (a / 2 - \hat{u} \cdot (\vec{r} - \vec{r_0}))] \times [-i (- b / 2 - \hat{v} \cdot (\vec{r} - \vec{r_0})); -i (b / 2 - \hat{v} \cdot (\vec{r} - \vec{r_0}))]$. Using the identity $\int \frac{dx}{\sqrt{a^2 - x^2}} = \arcsin(\frac{x}{a}) + C$, we integrate in $u'$ to get
+
+\begin{equation*}
+    \frac{Q}{4 \pi} \int_{v'_1}^{v'_2} \left( \arcsin \left( \frac{u'_2}{\sqrt{k - v'^2}} \right) - \arcsin \left( \frac{u'_1}{\sqrt{k - v'^2}} \right) \right) dv'
+\end{equation*}
+
+The exponential definition $\arcsin(x) = -i \ln(ix + \sqrt{1 - x^2})$ along with the identity $\ln(a / b) = \ln(a) - \ln(b)$ allows us to rewrite the above integral as
+
+\begin{equation*}
+    - i \frac{Q}{4 \pi} \int_{v'_1}^{v'_2} \left( \ln \left( iu'_2 + \sqrt{k - (u'_2)^2 - v'^2} \right) - \ln \left( iu'_1 + \sqrt{k - (u'_1)^2 - v'^2} \right) \right) dv'
+\end{equation*}
+
+To solve an integral in the form of
+
+\begin{equation*}
+    \int \ln \left( a + \sqrt{b - x^2} \right) dx
+\end{equation*}
+
+we first use integration by parts to get
+
+\begin{equation*}
+    x \ln \left( a + \sqrt{b - x^2} \right) - \int x \frac{d}{dx} \left( \ln \left( a + \sqrt{b - x^2} \right) \right) dx
+\end{equation*}
+
+Following just the above integral, we write it as
+
+\begin{multline*}
+    \int x \frac{d}{dx} \left( \ln \left( a + \sqrt{b - x^2} \right) \right) dx = - \int \frac{x^2}{(a + \sqrt{b - x^2}) \sqrt{b - x^2}} dx = \\
+    = - \int \frac{x^2 (a - \sqrt{b - x^2})}{(a^2 - b + x^2) \sqrt{b - x^2}} dx = \\
+    = - \int \left( \frac{a^2 - b}{a^2 - b + x^2} - a \frac{a^2 - b}{(a^2 - b + x^2) \sqrt{b - x^2}} + \frac{a}{\sqrt{b - x^2}} - 1 \right) dx
+\end{multline*}
+
+where we used a technique similar to \href{https://en.wikipedia.org/wiki/Partial_fraction_decomposition}{partial fraction decomposition} to transform the integral into a form where we can use the identities
+
+\begin{equation*}
+    \int \frac{dx}{a^2 + x^2} = \frac{1}{a} \arctan \left( \frac{x}{a} \right) + C
+\end{equation*}
+\begin{equation*}
+    \int \frac{dx}{(a^2 - b + x^2) \sqrt{b - x^2}} = \frac{1}{a \sqrt{a^2 - b}} \arctan \left( \frac{ax}{\sqrt{a^2 - b} \sqrt{b - x^2}} \right) + C
+\end{equation*}
+\begin{equation*}
+    \int \frac{dx}{\sqrt{a - x^2}} = \arctan \left( \frac{x}{\sqrt{a - x^2}} \right) + C
+\end{equation*}
+
+to solve the "decomposed" integral, resulting in
+
+\begin{multline*}
+    \int \ln \left( a + \sqrt{b - x^2} \right) dx = x \ln \left( a + \sqrt{b - x^2} \right) + \sqrt{a^2 - b} \arctan \left( \frac{x}{\sqrt{a^2 - b}} \right) - \\
+    - \sqrt{a^2 - b} \arctan \left( \frac{ax}{\sqrt{a^2 - b} \sqrt{b - x^2}} \right) + a \arctan \left( \frac{x}{\sqrt{b - x^2}} \right) - x + C
+\end{multline*}
+
+Tying this back into the original problem, we substitute in $a_n = i u'_n$, $b_n = k - (u'_n)^2$, and $x = v'$ and simplify to get
+
+\begin{multline*}
+    -i \frac{Q}{4 \pi} \Bigg( \left( v' \ln \left( i u' + \sqrt{k - u'^2 - v'^2} \right) + \sqrt{-k} \arctan \left( \frac{v'}{\sqrt{-k}} \right) - \right. \\
+    - \sqrt{-k} \arctan \left( \frac{i u' v'}{\sqrt{-k} \sqrt{k - u'^2 - v'^2}} \right) + i u' \arctan \left( \frac{v'}{\sqrt{k - u'^2 - v'^2}} \right) - \\
+    \left. - v' + C \bigg) \bigg|_{u' = u'_1}^{u' = u'_2} \right) \bigg|_{v' = v'_1}^{v' = v'_2} = \\
+    = - \frac{Q}{4 \pi} \Bigg( \left( i v' \ln \left( i u' + \sqrt{k - u'^2 - v'^2} \right) + \sqrt{k} \arctan \left( \frac{u' v'}{\sqrt{k} \sqrt{k - u'^2 - v'^2}} \right) + \right. \\
+    \left. - u' \arctan \left( \frac{v'}{\sqrt{k - u'^2 - v'^2}} \right) \bigg) \bigg|_{u' = u'_1}^{u' = u'_2} \right) \bigg|_{v' = v'_1}^{v' = v'_2}
+\end{multline*}
+
+To emphasize the \href{https://en.wikipedia.org/wiki/Symmetry}{symmetry} in $u'$ and $v'$, we use the exponential definition $\arctan(x) = \frac{i}{2} \ln \left( \frac{i + x}{i - x} \right)$ to rewrite the above expression as
+
+\begin{multline*}
+    - \frac{Q}{4 \pi} \Bigg( \left( i v' \ln \left( i u' + \sqrt{k - u'^2 - v'^2} \right) + \sqrt{k} \arctan \left( \frac{u' v'}{\sqrt{k} \sqrt{k - u'^2 - v'^2}} \right) + \right. \\
+    \left. + i u' \ln \left( i v' + \sqrt{k - u'^2 - v'^2} \right) \bigg) \bigg|_{u' = u'_1}^{u' = u'_2} \right) \bigg|_{v' = v'_1}^{v' = v'_2}
+\end{multline*}
+
+where the $\frac{i}{2} \ln(k - u'^2)$ term has been ignored since being invariant in $v'$ means it will get cancelled in the outer $v'$-summation. Transitioning back to the original $u$ and $v$ variables, we get
+
+\begin{multline}
+    \label{eq:SolutionToTheEquationForTheEffectOfARectangularSourcePanelOnTheVelocityPotential}
+    \phi(\vec{r}) = - \frac{Q}{4 \pi} \Bigg( \bigg( (v - \hat{v} \cdot (\vec{r} - \vec{r_0})) \ln \big( u - \hat{u} \cdot (\vec{r} - \vec{r_0}) + |\vec{r} - (\vec{r_0} - \hat{u} u + \hat{v} v)| \big) - \\ 
+    - \sqrt{k} \arctan \left( \frac{(u - \hat{u} \cdot (\vec{r} - \vec{r_0})) (v - \hat{v} \cdot (\vec{r} - \vec{r_0}))}{\sqrt{k} |\vec{r} - (\vec{r_0} + \hat{u} u + \hat{v} v)|} \right) + \\
+    + (u - \hat{u} \cdot (\vec{r} - \vec{r_0})) \ln \big( v - \hat{v} \cdot (\vec{r} - \vec{r_0}) + |\vec{r} - (\vec{r_0} + \hat{u} u + \hat{v} v)| \big) \bigg) \bigg|_{u = - \frac{a}{2}}^{u = \frac{a}{2}} \Bigg) \bigg|_{v = - \frac{b}{2}}^{v = \frac{b}{2}}
+\end{multline}
+
+where, restating for convenience, $k = |\vec{r} - \vec{r_0}|^2 - (\hat{u} \cdot (\vec{r} - \vec{r_0}))^2 - (\hat{v} \cdot (\vec{r} - \vec{r_0}))^2$.
+
+\subsubsection{The Effect of a Rectangular Source Panel on Velocity}
+
+Given equations \ref{eq:RelationOfVelocityAndVelocityPotential} and \ref{eq:EffectOfARectangularSourcePanelOnVelocityPotential}, finding the effect of a rectangular panel as defined above on the flow velocity simply entails taking the gradient of equation \ref{eq:EffectOfARectangularSourcePanelOnVelocityPotential}.
+
+In the interest of brevity, we only compute the \href{https://en.wikipedia.org/wiki/Partial_derivative}{partial derivative} with respect to $r_i$ (the $i$-th component of $\vec{r}$). Because the bounds of integration in \ref{eq:EffectOfARectangularSourcePanelOnVelocityPotential} are constant in $r_i$, we can differentiate the integrand before integrating, resulting in
+
+\begin{multline*}
+    \frac{\partial}{\partial r_i} \phi(\vec{r}) = - \frac{Q}{4 \pi} \iint_T \frac{\partial}{\partial r_i} \left( \frac{1}{|\vec{r} - (\vec{r_0} + \hat{u} u + \hat{v} v)|} \right) du dv = \\
+    = - \frac{Q}{4 \pi} \iint_T \frac{(r_{0i} + u_i u + v_i v) - r_i}{|\vec{r} - (\vec{r_0} + \hat{u} u + \hat{v} v)|^3} du dv
+\end{multline*}
+
+We can represent the \href{https://en.wikipedia.org/wiki/Fraction}{denominator} of the integrand as
+
+\begin{equation*}
+    \left( \sqrt{|\hat{u} u + \hat{v} v|^2 - 2 (\hat{u} u + \hat{v} v) \cdot (\vec{r} - \vec{r_0}) + |\vec{r} - \vec{r_0}|^2} \right)^3 = \left( \sqrt{u'^2 + v'^2 + k} \right)^3
+\end{equation*}
+
+where $u' = u - \hat{u} \cdot (\vec{r} - \vec{r_0})$, $v' = v - \hat{v} \cdot (\vec{r} - \vec{r_0})$ and $k = |\vec{r} - \vec{r_0}|^2 - (\hat{u} \cdot (\vec{r} - \vec{r_0}))^2 - (\hat{v} \cdot (\vec{r} - \vec{r_0}))^2$. Because the transition to the $u'$ and $v'$ coordinates is a simple \href{https://en.wikipedia.org/wiki/Translation_(geometry)}{translation}, its \href{https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant}{Jacobian} is always $1$, allowing us to rewrite the integral as
+
+\begin{equation*}
+    - \frac{Q}{4 \pi} \iint_{T'} \frac{u_i u' + v_i v' - c_i}{\left( \sqrt{u'^2 + v'^2 + k} \right)^3} du' dv'
+\end{equation*}
+
+where $T' = [u'_1; u'_2] \times [v'_1; v'_2] = [-a/2 - \hat{u} \cdot (\vec{r} - \vec{r_0}); a/2 - \hat{u} \cdot (\vec{r} - \vec{r_0})] \times [-b/2 - \hat{v} \cdot (\vec{r} - \vec{r_0}); b/2 - \hat{v} \cdot (\vec{r} - \vec{r_0})]$ and $c_i = r_i  - r_{0i} - u_i (\hat{u} \cdot (\vec{r} - \vec{r_0})) - v_i (\hat{v} \cdot (\vec{r} - \vec{r_0}))$. Using the identities $\int \frac{x dx}{(\sqrt{x^2 + a})^3} = - \frac{1}{\sqrt{x^2 + a}} + C$ and $\int \frac{dx}{(\sqrt{x^2 + a})^3} = \frac{x}{a \sqrt{x^2 + a}} + C$ to integrate in $u'$, we get
+
+\begin{multline*}
+    - \frac{Q}{4 \pi} \int_{v' = v'_1}^{v' = v'_2} \left( - \frac{u_i}{\sqrt{u'^2 + v'^2 + k}} + \frac{v_i u' v' - c_i u'}{(v'^2 + k) \sqrt{u'^2 + v'^2 + k}} \right) \bigg|_{u' = u'_1}^{u' = u'_2} dv' = \\
+    - \frac{Q}{4 \pi} \int_{v' = v'_1}^{v' = v'_2} \left( - u_i \frac{1}{\sqrt{u'^2 + v'^2 + k}} - v_i \frac{1}{1 - \left( \frac{\sqrt{u'^2 + v'^2 + k}}{u'} \right)^2} \cdot \frac{v'}{u' \sqrt{u'^2 + v'^2 + k}} - \right. \\
+    \left. - \frac{c_i}{\sqrt{k}} \frac{1}{1 + \left( \frac{u' v'}{\sqrt{k} \sqrt{u'^2 + v'^2 + k}} \right)^2} \cdot \frac{u' (u'^2 + k)}{\sqrt{k} \left( \sqrt{u'^2 + v'^2 + k} \right)^3} \right) \bigg|_{u' = u'_1}^{u' = u'_2} dv'
+\end{multline*}
+
+We now use the identities $\int \frac{dx}{\sqrt{x^2 + a^2}} = \ln \left( \frac{x + \sqrt{x^2 + a^2}}{a} \right) + C$, $\frac{d}{dx} \text{artanh}(x) = \frac{1}{1 - x^2}$, and $\frac{d}{dx} \arctan(x) = \frac{1}{1 + x^2}$ to integrate in $v'$, leading to
+
+\begin{multline*}
+    \frac{Q}{4 \pi} \left( \left( u_i \ln \left( \frac{v' + \sqrt{u'^2 + v'^2 + k}}{\sqrt{u'^2 + k}} \right) + v_i \text{artanh} \left( \frac{\sqrt{u'^2 + v'^2 + k}}{u'} \right) + \right. \right. \\
+    \left. \left. + \frac{c_i}{\sqrt{k}} \arctan \left( \frac{u' v'}{\sqrt{k} \sqrt{u'^2 + v'^2 + k}} \right) \right) \bigg|_{u' = u'_1}^{u' = u'_2} \right) \bigg|_{v' = v'_1}^{v' = v'_2}
+\end{multline*}
+
+Using the exponential definition $\text{artanh}(x) = \frac{1}{2} \ln \left( \frac{1 + x}{1 - x} \right)$ and noting that terms constant in either $u'$ or $v'$ will get cancelled, we rewrite this as
+
+\begin{multline*}
+    \frac{Q}{4 \pi} \left( \left( u_i \ln \left( v' + \sqrt{u'^2 + v'^2 + k} \right) + v_i \ln \left( u' + \sqrt{u'^2 + v'^2 + k} \right) + \right. \right. \\
+    \left. \left. + \frac{c_i}{\sqrt{k}} \arctan \left( \frac{u' v'}{\sqrt{k} \sqrt{u'^2 + v'^2 + k}} \right) \right) \bigg|_{u' = u'_1}^{u' = u'_2} \right) \bigg|_{v' = v'_1}^{v' = v'_2}
+\end{multline*}
+
+Transitioning back to the original $u$ and $v$ coordinates, we see trivially that
+
+\begin{multline}
+    \label{eq:SolutionToTheEffectOfARectangularSourcePanelOnTheVelocity}
+    \vec{v}(\vec{r}) = \nabla \phi(\vec{r}) = \frac{Q}{4 \pi} \Bigg( \bigg( \hat{u} \ln \big( v - \hat{v} \cdot (\vec{r} - \vec{r_0}) + |\vec{r} - (\vec{r_0} + \hat{u} u + \hat{v} v)| \big) + \\
+    + \hat{v} \ln \big( u - \hat{u} \cdot (\vec{r} - \vec{r_0}) + |\vec{r} - (\vec{r_0} + \hat{u} u + \hat{v} v)| \big) + \\
+    \left. \left. + \frac{\vec{c}}{\sqrt{k}} \arctan \left( \frac{(u - \hat{u} \cdot (\vec{r} - \vec{r_0})) (v - \hat{v} \cdot (\vec{r} - \vec{r_0}))}{\sqrt{k} |\vec{r} - (\vec{r_0} + \hat{u} u + \hat{v} v)|} \right) \right) \bigg|_{u = u_1}^{u = u_2} \right) \bigg|_{v = v_1}^{v = v_2}
+\end{multline}
+
+where $\vec{c} = \vec{r}  - \vec{r_0} - \hat{u} (\hat{u} \cdot (\vec{r} - \vec{r_0})) - \hat{v} (\hat{v} \cdot (\vec{r} - \vec{r_0}))$ and, restating for convenience, $k = |\vec{r} - \vec{r_0}|^2 - (\hat{u} \cdot (\vec{r} - \vec{r_0}))^2 - (\hat{v} \cdot (\vec{r} - \vec{r_0}))^2$.
+
+\end{document}
