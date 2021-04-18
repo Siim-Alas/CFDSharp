@@ -2,11 +2,13 @@
 
 namespace CFDSharpClassLibrary.PotentialFlow.SourcePanelMethod
 {
-    public class SourcePanel : IPointSource
+    public class SourcePanel
     {
-        public Vector3 Normal { get; }
+        public float AOver2 { get; }
+        public float BOver2 { get; }
         public Vector3 Position { get; }
-        public double Size { get; }
-        public double Strength { get; }
+        public float Strength { get; }
+        public Vector3 U { get; }
+        public Vector3 V { get; }
     }
 }
