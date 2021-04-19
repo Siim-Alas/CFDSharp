@@ -123,9 +123,9 @@ namespace CFDSharpClassLibrary.LinearAlgebra
                 
                 for (int m = i + 1; m < rows; m++)
                 {
-                    M[m, j] = 0;
-
                     double factor = M[m, j] / M[i, j];
+
+                    M[m, j] = 0;
                     for (int n = j + 1; n < columns; n++)
                     {
                         M[m, n] -= factor * M[i, n];
