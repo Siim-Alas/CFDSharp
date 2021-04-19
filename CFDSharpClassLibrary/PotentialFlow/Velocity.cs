@@ -70,7 +70,7 @@ namespace CFDSharpClassLibrary.PotentialFlow
 
             Vector3 velocity = sourcePanel.Strength / (4 * MathF.PI) *
                 (ln1 * sourcePanel.U + ln2 * sourcePanel.V + 
-                (1 / sqrtK) * c * atanSum);
+                (atanSum / sqrtK) * c);
             return velocity;
         }
     }
