@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CFDSharpConsoleUI", "CFDSharpConsoleUI\CFDSharpConsoleUI.csproj", "{C935D821-5B7F-4428-96E3-8FFB60D242C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFDSharpClassLibrary", "CFDSharpClassLibrary\CFDSharpClassLibrary.csproj", "{7A21B841-643F-4187-BC39-0F370FA140C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CFDSharpClassLibrary", "CFDSharpClassLibrary\CFDSharpClassLibrary.csproj", "{7A21B841-643F-4187-BC39-0F370FA140C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFDSharpClassLibraryTests", "CFDSharpClassLibraryTests\CFDSharpClassLibraryTests.csproj", "{071EEA56-2C56-478C-A318-6964AD361CA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7A21B841-643F-4187-BC39-0F370FA140C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A21B841-643F-4187-BC39-0F370FA140C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A21B841-643F-4187-BC39-0F370FA140C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{071EEA56-2C56-478C-A318-6964AD361CA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{071EEA56-2C56-478C-A318-6964AD361CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{071EEA56-2C56-478C-A318-6964AD361CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{071EEA56-2C56-478C-A318-6964AD361CA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

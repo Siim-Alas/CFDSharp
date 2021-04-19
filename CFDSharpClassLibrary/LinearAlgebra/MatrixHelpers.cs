@@ -36,6 +36,47 @@ namespace CFDSharpClassLibrary.LinearAlgebra
             return -1;
         }
         /// <summary>
+        /// Solves the matrix equation Mv = b for the vector v with Gaussian
+        /// elimination (https://en.wikipedia.org/wiki/Gaussian_elimination).
+        /// The equation is given in the form of a matrix with n rows and n + 1
+        /// columns, where the first n columns represent the coefficients of 
+        /// the original matrix and the last column represents the vector b. 
+        /// Note that this will mutate the input matrix.
+        /// </summary>
+        /// <param name="M">
+        /// The n by n + 1 matrix representing the system of linear equations.
+        /// </param>
+        /// <returns>
+        /// An array representing the solution vector to the matrix equation.
+        /// </returns>
+        public static double[] SolveWithGaussianElimination(ref double[,] M)
+        {
+            int rows = M.GetLength(0);
+            int columns = M.GetLength(1);
+
+            if (columns != rows + 1)
+            {
+                throw new ArgumentException(
+                    "The matrix did not have n rows and n + 1 columns.",
+                    nameof(M));
+            }
+
+            TransformInPlaceToRowEchelonForm(ref M);
+
+            double[] solution = new double[rows];
+            for (int i = rows - 1; i >= 0; i--)
+            {
+                solution[i] = M[i, columns - 1];
+                for (int j = i + 1; j < rows; j++)
+                {
+                    solution[i] -= solution[j] * M[i, j];
+                }
+                solution[i] /= M[i, i];
+            }
+
+            return solution;
+        }
+        /// <summary>
         /// Swaps the specified rows in the matrix. Note that the matrix will
         /// get mutated.
         /// </summary>
@@ -94,47 +135,6 @@ namespace CFDSharpClassLibrary.LinearAlgebra
                 i++;
                 j++;
             }
-        }
-        /// <summary>
-        /// Solves the matrix equation Mv = b for the vector v with Gaussian
-        /// elimination (https://en.wikipedia.org/wiki/Gaussian_elimination).
-        /// The equation is given in the form of a matrix with n rows and n + 1
-        /// columns, where the first n columns represent the coefficients of 
-        /// the original matrix and the last column represents the vector b. 
-        /// Note that this will mutate the input matrix.
-        /// </summary>
-        /// <param name="M">
-        /// The n by n + 1 matrix representing the system of linear equations.
-        /// </param>
-        /// <returns>
-        /// An array representing the solution vector to the matrix equation.
-        /// </returns>
-        public static double[] SolveWithGaussianElimination(ref double[,] M)
-        {
-            int rows = M.GetLength(0);
-            int columns = M.GetLength(1);
-
-            if (columns != rows + 1)
-            {
-                throw new ArgumentException(
-                    "The matrix did not have n rows and n + 1 columns.", 
-                    nameof(M));
-            }
-
-            TransformInPlaceToRowEchelonForm(ref M);
-
-            double[] solution = new double[rows];
-            for (int i = rows - 1; i >= 0; i--)
-            {
-                solution[i] = M[i, columns - 1];
-                for (int j = i + 1; j < rows; j++)
-                {
-                    solution[i] -= solution[j] * M[i, j];
-                }
-                solution[i] /= M[i, i];
-            }
-
-            return solution;
         }
     }
 }
