@@ -94,7 +94,7 @@ namespace CFDSharpClassLibrary.LinearAlgebra
             }
         }
         /// <summary>
-        /// Transforms a matrix to unnormalized row echeon form using Gaussian
+        /// Transforms a matrix to unnormalized row echelon form using Gaussian
         /// elimination (https://en.wikipedia.org/wiki/Gaussian_elimination). 
         /// Note that this will mutate the matrix.
         /// </summary>
