@@ -69,6 +69,11 @@ namespace CFDSharpClassLibrary.PotentialFlow
             Vector3 u, 
             Vector3 v)
         {
+            if (dr == Vector3.Zero)
+            {
+                return Vector3.Zero;
+            }
+
             float d11 = (dr - aOver2 * u - bOver2 * v).Length();
             float d12 = (dr - aOver2 * u + bOver2 * v).Length();
             float d21 = (dr + aOver2 * u - bOver2 * v).Length();
