@@ -82,24 +82,16 @@ namespace CFDSharpClassLibrary.PotentialFlow
             float uDotDr = Vector3.Dot(u, dr);
             float vDotDr = Vector3.Dot(v, dr);
 
+            float ln1 = MathF.Log(
+                (-bOver2 - vDotDr + d11) * (bOver2 - vDotDr + d22) /
+                ((bOver2 - vDotDr + d12) * (-bOver2 - vDotDr + d21)));
+            float ln2 = MathF.Log(
+                (-aOver2 - uDotDr + d11) * (aOver2 - uDotDr + d22) /
+                ((-aOver2 - uDotDr + d12) * (aOver2 - uDotDr + d21)));
+
             Vector3 c = dr - uDotDr * u - vDotDr * v;
             float sqrtK = MathF.Sqrt(dr.LengthSquared() - uDotDr * uDotDr -
                 vDotDr * vDotDr);
-
-            float lnArg111 = -bOver2 - vDotDr + d11;
-            float lnArg112 = bOver2 - vDotDr + d12;
-            float lnArg121 = -bOver2 - vDotDr + d21;
-            float lnArg122 = bOver2 - vDotDr + d22;
-
-            float lnArg211 = -aOver2 - uDotDr + d11;
-            float lnArg212 = -aOver2 - uDotDr + d12;
-            float lnArg221 = aOver2 - uDotDr + d21;
-            float lnArg222 = aOver2 - uDotDr + d22;
-
-            float ln1 =
-                MathF.Log(lnArg111 * lnArg122 / (lnArg112 * lnArg121));
-            float ln2 =
-                MathF.Log(lnArg211 * lnArg222 / (lnArg212 * lnArg221));
 
             float atan11 = MathF.Atan2((-aOver2 - uDotDr) * (-bOver2 - vDotDr),
                 sqrtK * d11);

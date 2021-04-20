@@ -78,9 +78,6 @@ namespace CFDSharpClassLibrary.PotentialFlow
             float uDotDr = Vector3.Dot(u, dr);
             float vDotDr = Vector3.Dot(v, dr);
 
-            float sqrtK = MathF.Sqrt(dr.LengthSquared() - uDotDr * uDotDr -
-                vDotDr * vDotDr);
-
             float lnArg111 = -bOver2 - vDotDr + d11;
             float lnArg112 = bOver2 - vDotDr + d12;
             float lnArg121 = -bOver2 - vDotDr + d21;
@@ -95,8 +92,11 @@ namespace CFDSharpClassLibrary.PotentialFlow
                 aOver2 * MathF.Log(lnArg122*lnArg112 / (lnArg111*lnArg121)) +
                 uDotDr * MathF.Log(lnArg112*lnArg121 / (lnArg111*lnArg122));
             float scaledLn2Sum =
-                bOver2 * MathF.Log(lnArg222 * lnArg221 / (lnArg211 * lnArg212)) +
-                uDotDr * MathF.Log(lnArg212 * lnArg221 / (lnArg211 * lnArg222));
+                bOver2 * MathF.Log(lnArg222*lnArg221 / (lnArg211*lnArg212)) +
+                uDotDr * MathF.Log(lnArg212*lnArg221 / (lnArg211*lnArg222));
+
+            float sqrtK = MathF.Sqrt(dr.LengthSquared() - uDotDr * uDotDr -
+                vDotDr * vDotDr);
 
             float atan11 = MathF.Atan2((-aOver2 - uDotDr) * (-bOver2 - vDotDr),
                 sqrtK * d11);
