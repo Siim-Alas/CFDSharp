@@ -76,9 +76,9 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float d22 = (aOver2 * u + bOver2 * v).Length();
 
             float correctResult = -strength / (4 * MathF.PI) * 
-                (-aOver2 * MathF.Log(-bOver2 + d11) - bOver2 * MathF.Log(-aOver2 + d11) +
-                -aOver2 * MathF.Log(bOver2 + d12) + bOver2 * MathF.Log(-aOver2 + d12) +
-                aOver2 * MathF.Log(-bOver2 + d21) - bOver2 * MathF.Log(aOver2 + d21) +
+                (-aOver2 * MathF.Log(-bOver2 + d11) - bOver2 * MathF.Log(-aOver2 + d11) -
+                (-aOver2 * MathF.Log(bOver2 + d12) + bOver2 * MathF.Log(-aOver2 + d12)) -
+                (aOver2 * MathF.Log(-bOver2 + d21) - bOver2 * MathF.Log(aOver2 + d21)) +
                 aOver2 * MathF.Log(bOver2 + d22) + bOver2 * MathF.Log(aOver2 + d22));
 
             // Act

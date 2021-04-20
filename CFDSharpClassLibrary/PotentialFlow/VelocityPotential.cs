@@ -81,27 +81,22 @@ namespace CFDSharpClassLibrary.PotentialFlow
             float sqrtK = MathF.Sqrt(dr.LengthSquared() - uDotDr * uDotDr -
                 vDotDr * vDotDr);
 
-            float ln111 = MathF.Log(-bOver2 - vDotDr + d11);
-            float ln112 = MathF.Log(bOver2 - vDotDr + d12);
-            float ln121 = MathF.Log(-bOver2 - vDotDr + d21);
-            float ln122 = MathF.Log(bOver2 - vDotDr + d22);
+            float lnArg111 = -bOver2 - vDotDr + d11;
+            float lnArg112 = bOver2 - vDotDr + d12;
+            float lnArg121 = -bOver2 - vDotDr + d21;
+            float lnArg122 = bOver2 - vDotDr + d22;
+
+            float lnArg211 = -aOver2 - uDotDr + d11;
+            float lnArg212 = -aOver2 - uDotDr + d12;
+            float lnArg221 = aOver2 - uDotDr + d21;
+            float lnArg222 = aOver2 - uDotDr + d22;
 
             float scaledLn1Sum =
-                (-aOver2 - uDotDr) * ln111 +
-                (-aOver2 - uDotDr) * ln112 +
-                (aOver2 - uDotDr) * ln121 +
-                (aOver2 - uDotDr) * ln122;
-
-            float ln211 = MathF.Log(-aOver2 - uDotDr + d11);
-            float ln212 = MathF.Log(-aOver2 - uDotDr + d12);
-            float ln221 = MathF.Log(aOver2 - uDotDr + d21);
-            float ln222 = MathF.Log(aOver2 - uDotDr + d22);
-
+                aOver2 * MathF.Log(lnArg122*lnArg112 / (lnArg111*lnArg121)) +
+                uDotDr * MathF.Log(lnArg112*lnArg121 / (lnArg111*lnArg122));
             float scaledLn2Sum =
-                (-bOver2 - vDotDr) * ln211 +
-                (bOver2 - vDotDr) * ln212 +
-                (-bOver2 - vDotDr) * ln221 +
-                (bOver2 - vDotDr) * ln222;
+                bOver2 * MathF.Log(lnArg222 * lnArg221 / (lnArg211 * lnArg212)) +
+                uDotDr * MathF.Log(lnArg212 * lnArg221 / (lnArg211 * lnArg222));
 
             float atan11 = MathF.Atan2((-aOver2 - uDotDr) * (-bOver2 - vDotDr),
                 sqrtK * d11);
@@ -112,10 +107,10 @@ namespace CFDSharpClassLibrary.PotentialFlow
             float atan22 = MathF.Atan2((aOver2 - uDotDr) * (bOver2 - vDotDr),
                 sqrtK * d22);
 
-            float scaledAtanSum = sqrtK * (atan22 - atan21 - atan12 + atan11);
+            float atanSum = atan22 - atan21 - atan12 + atan11;
 
             float velocityPotential = -strength / (4 * MathF.PI) *
-                (scaledLn1Sum + scaledLn2Sum - scaledAtanSum);
+                (scaledLn1Sum + scaledLn2Sum - sqrtK * atanSum);
             return velocityPotential;
         }
     }
