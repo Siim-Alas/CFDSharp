@@ -1,5 +1,5 @@
-﻿using BenchmarkDotNet.Reports;
-using BenchmarkDotNet.Running;
+﻿using BenchmarkDotNet.Running;
+using CFDSharpClassLibraryBenchmarks.LinearAlgebra;
 
 namespace CFDSharpClassLibraryBenchmarks
 {
@@ -7,7 +7,9 @@ namespace CFDSharpClassLibraryBenchmarks
     {
         static void Main(string[] args)
         {
-            Summary summary = BenchmarkRunner.Run<BernoullisPrincipleBenchmarks>();
+            // BenchmarkRunner.Run<BernoullisPrincipleBenchmarks>();
+
+            BenchmarkRunner.Run<MatrixHelpersBenchmarks>();
         }
     }
 }
