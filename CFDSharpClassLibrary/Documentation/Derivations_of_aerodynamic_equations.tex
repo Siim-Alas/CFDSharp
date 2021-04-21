@@ -13,16 +13,16 @@
 }
 
 \title{Derivations of aerodynamic equations}
-\author{siim.alas }
+\author{Siim Alas}
 \date{April 2021}
 
 \begin{document}
 
 \maketitle
 
-\section{Introduction}
+\section*{Introduction}
 
-Bla.
+This document contains the derivations of the aerodynamic equations used in the library.
 
 \section{Potential Flow Theory}
 
@@ -229,6 +229,6 @@ Transitioning back to the original $u$ and $v$ coordinates, we see trivially tha
     \left. \left. + \frac{\vec{c}}{\sqrt{k}} \arctan \left( \frac{(u - \hat{u} \cdot (\vec{r} - \vec{r_0})) (v - \hat{v} \cdot (\vec{r} - \vec{r_0}))}{\sqrt{k} |\vec{r} - (\vec{r_0} + \hat{u} u + \hat{v} v)|} \right) \right) \bigg|_{u = u_1}^{u = u_2} \right) \bigg|_{v = v_1}^{v = v_2}
 \end{multline}
 
-where $\vec{c} = \vec{r}  - \vec{r_0} - \hat{u} (\hat{u} \cdot (\vec{r} - \vec{r_0})) - \hat{v} (\hat{v} \cdot (\vec{r} - \vec{r_0}))$ and, restating for convenience, $k = |\vec{r} - \vec{r_0}|^2 - (\hat{u} \cdot (\vec{r} - \vec{r_0}))^2 - (\hat{v} \cdot (\vec{r} - \vec{r_0}))^2$.
+where $\vec{c} = \vec{r}  - \vec{r_0} - \hat{u} (\hat{u} \cdot (\vec{r} - \vec{r_0})) - \hat{v} (\hat{v} \cdot (\vec{r} - \vec{r_0}))$ and, restating for convenience, $k = |\vec{r} - \vec{r_0}|^2 - (\hat{u} \cdot (\vec{r} - \vec{r_0}))^2 - (\hat{v} \cdot (\vec{r} - \vec{r_0}))^2$. Note that $\frac{\vec{c}}{\sqrt{k}} = \frac{\vec{c}}{|c|} = \hat{c}$ is a unit vector representing the component of $\vec{r} - \vec{r_0}$ perpendicular to both $\hat{u}$ and $\hat{v}$.
 
 \end{document}

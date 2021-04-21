@@ -69,11 +69,6 @@ namespace CFDSharpClassLibrary.PotentialFlow
             Vector3 u, 
             Vector3 v)
         {
-            if (dr == Vector3.Zero)
-            {
-                return Vector3.Zero;
-            }
-
             float d11 = (dr - aOver2 * u - bOver2 * v).Length();
             float d12 = (dr - aOver2 * u + bOver2 * v).Length();
             float d21 = (dr + aOver2 * u - bOver2 * v).Length();
@@ -82,30 +77,39 @@ namespace CFDSharpClassLibrary.PotentialFlow
             float uDotDr = Vector3.Dot(u, dr);
             float vDotDr = Vector3.Dot(v, dr);
 
-            float ln1 = MathF.Log(
+            float ln1 = MathF.Log(MathF.Abs(
                 (-bOver2 - vDotDr + d11) * (bOver2 - vDotDr + d22) /
-                ((bOver2 - vDotDr + d12) * (-bOver2 - vDotDr + d21)));
-            float ln2 = MathF.Log(
+                ((bOver2 - vDotDr + d12) * (-bOver2 - vDotDr + d21))));
+            float ln2 = MathF.Log(MathF.Abs(
                 (-aOver2 - uDotDr + d11) * (aOver2 - uDotDr + d22) /
-                ((-aOver2 - uDotDr + d12) * (aOver2 - uDotDr + d21)));
+                ((-aOver2 - uDotDr + d12) * (aOver2 - uDotDr + d21))));
 
             Vector3 c = dr - uDotDr * u - vDotDr * v;
-            float sqrtK = MathF.Sqrt(dr.LengthSquared() - uDotDr * uDotDr -
-                vDotDr * vDotDr);
+            float sqrtK = c.Length();
 
-            float atan11 = MathF.Atan2((-aOver2 - uDotDr) * (-bOver2 - vDotDr),
-                sqrtK * d11);
-            float atan12 = MathF.Atan2((-aOver2 - uDotDr) * (bOver2 - vDotDr), 
-                sqrtK * d12);
-            float atan21 = MathF.Atan2((aOver2 - uDotDr) * (-bOver2 - vDotDr), 
-                sqrtK * d21);
-            float atan22 = MathF.Atan2((aOver2 - uDotDr) * (bOver2 - vDotDr), 
-                sqrtK * d22);
+            Vector3 velocity;
 
-            float atanSum = atan22 - atan21 - atan12 + atan11;
+            if (sqrtK > 0)
+            {
+                float atan11 = MathF.Atan2(
+                    (-aOver2 - uDotDr) * (-bOver2 - vDotDr), sqrtK * d11);
+                float atan12 = MathF.Atan2(
+                    (-aOver2 - uDotDr) * (bOver2 - vDotDr), sqrtK * d12);
+                float atan21 = MathF.Atan2(
+                    (aOver2 - uDotDr) * (-bOver2 - vDotDr), sqrtK * d21);
+                float atan22 = MathF.Atan2(
+                    (aOver2 - uDotDr) * (bOver2 - vDotDr), sqrtK * d22);
 
-            Vector3 velocity = strength / (4 * MathF.PI) * (ln1 * u + ln2 * v +
-                (atanSum / sqrtK) * c);
+                float atanSum = atan22 - atan21 - atan12 + atan11;
+
+                velocity = strength / (4 * MathF.PI) * (ln1 * u + ln2 * v + 
+                    (atanSum / sqrtK) * c);
+            }
+            else
+            {
+                velocity = strength / (4 * MathF.PI) * (ln1 * u + ln2 * v);
+            }
+
             return velocity;
         }
     }
