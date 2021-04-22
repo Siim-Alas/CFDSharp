@@ -14,8 +14,7 @@ namespace CFDSharpClassLibrary.PotentialFlow.SourcePanelMethod
         /// solved for the strengths of the source panels.
         /// </summary>
         /// <param name="sourcePanels">
-        /// The array of source panels, all of which are assumed to have
-        /// strength 1.
+        /// The array of source panels.
         /// </param>
         /// <param name="vPanels">
         /// A vector representing the velocity vector of the panels (the
@@ -23,7 +22,7 @@ namespace CFDSharpClassLibrary.PotentialFlow.SourcePanelMethod
         /// </param>
         /// <returns>The equation matrix.</returns>
         public static double[,] CreateEquationMatrix(
-            SourcePanel[] sourcePanels, Vector3 vPanels)
+            UnitStrengthRectangularSourcePanel[] sourcePanels, Vector3 vPanels)
         {
             int rows = sourcePanels.Length;
             int columns = rows + 1;
@@ -65,7 +64,7 @@ namespace CFDSharpClassLibrary.PotentialFlow.SourcePanelMethod
         /// the source panel with that index.
         /// </returns>
         public static double[] SolveForRequiredSourcePanelStrengths(
-            SourcePanel[] sourcePanels, Vector3 vPanels)
+            UnitStrengthRectangularSourcePanel[] sourcePanels, Vector3 vPanels)
         {
             double[,] equationMatrix = 
                 CreateEquationMatrix(sourcePanels, vPanels);

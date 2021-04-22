@@ -12,7 +12,7 @@ namespace CFDSharpClassLibrary.PotentialFlow
     {
         /// <summary>
         /// Computes the steady state velocity potential at the point r due to 
-        /// the rectangular source panel provided.
+        /// the unit-strength rectangular source panel provided.
         /// </summary>
         /// <param name="r">
         /// The position vector of the point at which the velocity potential is
@@ -23,41 +23,40 @@ namespace CFDSharpClassLibrary.PotentialFlow
         /// </param>
         /// <returns>The scalar velocity potential at the point r.</returns>
         public static float ComputeSteadyState(
-            Vector3 r, SourcePanel sourcePanel)
+            Vector3 r, UnitStrengthRectangularSourcePanel sourcePanel)
         {
             float velocityPotential = ComputeSteadyState(
                 sourcePanel.AOver2,
                 sourcePanel.BOver2,
                 r - sourcePanel.Position,
-                sourcePanel.Strength,
                 sourcePanel.U,
                 sourcePanel.V);
             return velocityPotential;
         }
         /// <summary>
         /// Computes the steady state velocity potential at the point r due to
-        /// a rectangular source panel described by the arguments.
+        /// a unit-strength rectangular source panel described by the 
+        /// arguments.
         /// </summary>
         /// <param name="aOver2">
         /// Half of the length of the rectangular source panel along the u hat
-        /// surface normal vector.
+        /// surface tangent vector.
         /// </param>
         /// <param name="bOver2">
         /// Half of the length of the rectangular source panel along the v hat
-        /// surface normal vector.
+        /// surface tangent vector.
         /// </param>
         /// <param name="dr">
         /// r - r0, a vector pointing from the centre of the rectangluar source
         /// panel to the point r.
         /// </param>
-        /// <param name="strength">The strength of the source panel.</param>
         /// <param name="u">
-        /// The u hat surface normal vector, parallel to one side of the 
-        /// rectangle. Assumed to be orthogonal to v.
+        /// The u hat surface tangent vector of length 1, parallel to one side
+        /// of the rectangle. Assumed to be orthogonal to v.
         /// </param>
         /// <param name="v">
-        /// The v hat surface normal vector, parallel to the other side of the
-        /// rectangle. Assumed to be orhogonal to u.
+        /// The v hat surface tangent vector of length 1, parallel to the other
+        /// side of the rectangle. Assumed to be orhogonal to u.
         /// </param>
         /// <returns>
         /// The steady state scalar velocity potential at the point r.
@@ -66,7 +65,6 @@ namespace CFDSharpClassLibrary.PotentialFlow
             float aOver2,
             float bOver2,
             Vector3 dr,
-            float strength,
             Vector3 u,
             Vector3 v)
         {
@@ -109,8 +107,8 @@ namespace CFDSharpClassLibrary.PotentialFlow
 
             float atanSum = atan22 - atan21 - atan12 + atan11;
 
-            float velocityPotential = -strength / (4 * MathF.PI) *
-                (scaledLn1Sum + scaledLn2Sum - sqrtK * atanSum);
+            float velocityPotential = -(scaledLn1Sum + scaledLn2Sum - 
+                sqrtK * atanSum) / (4 * MathF.PI);
             return velocityPotential;
         }
     }

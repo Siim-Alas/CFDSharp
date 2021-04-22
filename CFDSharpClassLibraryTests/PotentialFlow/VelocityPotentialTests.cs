@@ -15,12 +15,11 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float aOver2 = 0;
             float bOver2 = 0;
             Vector3 dr = Vector3.One;
-            float strength = 3;
             Vector3 u = Vector3.UnitX;
             Vector3 v = Vector3.UnitY;
 
             // Act
-            float result = VelocityPotential.ComputeSteadyState(aOver2, bOver2, dr, strength, u, v);
+            float result = VelocityPotential.ComputeSteadyState(aOver2, bOver2, dr, u, v);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -32,12 +31,11 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float aOver2 = 0;
             float bOver2 = 2;
             Vector3 dr = Vector3.One;
-            float strength = 3;
             Vector3 u = Vector3.UnitX;
             Vector3 v = Vector3.UnitY;
 
             // Act
-            float result = VelocityPotential.ComputeSteadyState(aOver2, bOver2, dr, strength, u, v);
+            float result = VelocityPotential.ComputeSteadyState(aOver2, bOver2, dr, u, v);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -49,12 +47,11 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float aOver2 = 1;
             float bOver2 = 0;
             Vector3 dr = Vector3.One;
-            float strength = 3;
             Vector3 u = Vector3.UnitX;
             Vector3 v = Vector3.UnitY;
 
             // Act
-            float result = VelocityPotential.ComputeSteadyState(aOver2, bOver2, dr, strength, u, v);
+            float result = VelocityPotential.ComputeSteadyState(aOver2, bOver2, dr, u, v);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -66,7 +63,6 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float aOver2 = 1;
             float bOver2 = 2;
             Vector3 dr = Vector3.Zero;
-            float strength = 3;
             Vector3 u = Vector3.UnitX;
             Vector3 v = Vector3.UnitY;
 
@@ -75,14 +71,14 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float d21 = (aOver2 * u - bOver2 * v).Length();
             float d22 = (aOver2 * u + bOver2 * v).Length();
 
-            float correctResult = -strength / (4 * MathF.PI) * 
+            float correctResult = -1 / (4 * MathF.PI) * 
                 (-aOver2 * MathF.Log(-bOver2 + d11) - bOver2 * MathF.Log(-aOver2 + d11) -
                 (-aOver2 * MathF.Log(bOver2 + d12) + bOver2 * MathF.Log(-aOver2 + d12)) -
                 (aOver2 * MathF.Log(-bOver2 + d21) - bOver2 * MathF.Log(aOver2 + d21)) +
                 aOver2 * MathF.Log(bOver2 + d22) + bOver2 * MathF.Log(aOver2 + d22));
 
             // Act
-            float result = VelocityPotential.ComputeSteadyState(aOver2, bOver2, dr, strength, u, v);
+            float result = VelocityPotential.ComputeSteadyState(aOver2, bOver2, dr, u, v);
 
             // Assert
             Assert.AreEqual(correctResult, result);
@@ -94,7 +90,6 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float aOver2 = 1;
             float bOver2 = 2;
             Vector3 dr = new(1, 2, 3);
-            float strength = 3;
             Vector3 u = Vector3.UnitX;
             Vector3 v = Vector3.UnitY;
 
@@ -137,11 +132,11 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
 
             float atanSum = atan22 - atan21 - atan12 + atan11;
 
-            float correctResult = -strength / (4 * MathF.PI) *
+            float correctResult = -1 / (4 * MathF.PI) *
                 (scaledLn1Sum + scaledLn2Sum - sqrtK * atanSum);
 
             // Act
-            float result = VelocityPotential.ComputeSteadyState(aOver2, bOver2, dr, strength, u, v);
+            float result = VelocityPotential.ComputeSteadyState(aOver2, bOver2, dr, u, v);
 
             // Assert
             Assert.AreEqual(correctResult, result);

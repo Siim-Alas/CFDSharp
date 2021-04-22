@@ -15,12 +15,11 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float aOver2 = 0;
             float bOver2 = 0;
             Vector3 dr = Vector3.One;
-            float strength = 3;
             Vector3 u = Vector3.UnitX;
             Vector3 v = Vector3.UnitY;
 
             // Act
-            Vector3 result = Velocity.ComputeSteadyState(aOver2, bOver2, dr, strength, u, v);
+            Vector3 result = Velocity.ComputeSteadyState(aOver2, bOver2, dr, u, v);
 
             // Assert
             Assert.AreEqual(Vector3.Zero, result);
@@ -32,12 +31,11 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float aOver2 = 0;
             float bOver2 = 2;
             Vector3 dr = Vector3.One;
-            float strength = 3;
             Vector3 u = Vector3.UnitX;
             Vector3 v = Vector3.UnitY;
 
             // Act
-            Vector3 result = Velocity.ComputeSteadyState(aOver2, bOver2, dr, strength, u, v);
+            Vector3 result = Velocity.ComputeSteadyState(aOver2, bOver2, dr, u, v);
 
             // Assert
             Assert.AreEqual(Vector3.Zero, result);
@@ -49,12 +47,11 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float aOver2 = 1;
             float bOver2 = 0;
             Vector3 dr = Vector3.One;
-            float strength = 3;
             Vector3 u = Vector3.UnitX;
             Vector3 v = Vector3.UnitY;
 
             // Act
-            Vector3 result = Velocity.ComputeSteadyState(aOver2, bOver2, dr, strength, u, v);
+            Vector3 result = Velocity.ComputeSteadyState(aOver2, bOver2, dr, u, v);
 
             // Assert
             Assert.AreEqual(Vector3.Zero, result);
@@ -66,12 +63,11 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float aOver2 = 1;
             float bOver2 = 2;
             Vector3 dr = Vector3.Zero;
-            float strength = 3;
             Vector3 u = Vector3.UnitX;
             Vector3 v = Vector3.UnitY;
 
             // Act
-            Vector3 result = Velocity.ComputeSteadyState(aOver2, bOver2, dr, strength, u, v);
+            Vector3 result = Velocity.ComputeSteadyState(aOver2, bOver2, dr, u, v);
 
             // Assert
             Assert.AreEqual(Vector3.Zero, result);
@@ -83,7 +79,6 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float aOver2 = 1;
             float bOver2 = 2;
             Vector3 dr = new(3, 4, 0);
-            float strength = 6;
             Vector3 u = Vector3.UnitX;
             Vector3 v = Vector3.UnitY;
 
@@ -102,10 +97,10 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
                 (-aOver2 - uDotDr + d11) * (aOver2 - uDotDr + d22) /
                 ((aOver2 - uDotDr + d21) * (-aOver2 - uDotDr + d12))));
 
-            Vector3 correctResult = strength / (4 * MathF.PI) * (ln1 * u + ln2 * v);
+            Vector3 correctResult = 1 / (4 * MathF.PI) * (ln1 * u + ln2 * v);
 
             // Act
-            Vector3 result = Velocity.ComputeSteadyState(aOver2, bOver2, dr, strength, u, v);
+            Vector3 result = Velocity.ComputeSteadyState(aOver2, bOver2, dr, u, v);
 
             // Assert
             Assert.AreEqual(correctResult, result);
@@ -117,7 +112,6 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
             float aOver2 = 1;
             float bOver2 = 2;
             Vector3 dr = new(3, 4, 5);
-            float strength = 6;
             Vector3 u = Vector3.UnitX;
             Vector3 v = Vector3.UnitY;
 
@@ -150,11 +144,11 @@ namespace CFDSharpClassLibraryTests.PotentialFlow
 
             float atanSum = atan22 - atan21 - atan12 + atan11;
 
-            Vector3 correctResult = strength / (4 * MathF.PI) * (ln1 * u + ln2 * v +
+            Vector3 correctResult = 1 / (4 * MathF.PI) * (ln1 * u + ln2 * v +
                 (atanSum / sqrtK) * c);
 
             // Act
-            Vector3 result = Velocity.ComputeSteadyState(aOver2, bOver2, dr, strength, u, v);
+            Vector3 result = Velocity.ComputeSteadyState(aOver2, bOver2, dr, u, v);
 
             // Assert
             Assert.AreEqual(correctResult, result);

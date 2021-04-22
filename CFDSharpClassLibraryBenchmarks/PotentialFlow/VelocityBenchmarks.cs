@@ -9,7 +9,7 @@ namespace CFDSharpClassLibraryBenchmarks.PotentialFlow
     public class VelocityBenchmarks
     {
         private Vector3 _r;
-        private SourcePanel _sourcePanel;
+        private UnitStrengthRectangularSourcePanel _sourcePanel;
 
         [Params(10, 1000, float.MaxValue)]
         public float MaxVal { get; set; }
@@ -30,7 +30,7 @@ namespace CFDSharpClassLibraryBenchmarks.PotentialFlow
                 (float)(random.NextDouble() - 0.5) * float.MaxValue,
                 (float)(random.NextDouble() - 0.5) * float.MaxValue,
                 (float)(random.NextDouble() - 0.5) * float.MaxValue);
-            _sourcePanel = new SourcePanel
+            _sourcePanel = new UnitStrengthRectangularSourcePanel
             {
                 AOver2 = (float)random.NextDouble() * float.MaxValue,
                 BOver2 = (float)random.NextDouble() * float.MaxValue,
@@ -38,7 +38,6 @@ namespace CFDSharpClassLibraryBenchmarks.PotentialFlow
                     (float)(random.NextDouble() - 0.5) * float.MaxValue,
                     (float)(random.NextDouble() - 0.5) * float.MaxValue,
                     (float)(random.NextDouble() - 0.5) * float.MaxValue),
-                Strength = (float)(random.NextDouble() - 0.5) * float.MaxValue,
                 U = Vector3.Transform(Vector3.UnitX, rotationMatrix),
                 V = Vector3.Transform(Vector3.UnitY, rotationMatrix)
             };

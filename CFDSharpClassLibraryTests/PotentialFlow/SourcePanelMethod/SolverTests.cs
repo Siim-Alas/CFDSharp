@@ -12,31 +12,31 @@ namespace CFDSharpClassLibraryTests.PotentialFlow.SourcePanelMethod
         public void CreateEquationMatrix_WithUnitCubeInput_CreatesAMAtrixWith6RowsAnd7Columns()
         {
             // Arrange
-            SourcePanel[] sourcePanels = new SourcePanel[6]
+            UnitStrengthRectangularSourcePanel[] sourcePanels = new UnitStrengthRectangularSourcePanel[6]
             {
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0.5F, 0, 0), Strength = 1, U = Vector3.UnitY, V = Vector3.UnitZ
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0.5F, 0, 0), U = Vector3.UnitY, V = Vector3.UnitZ
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(-0.5F, 0, 0), Strength = 1, U = Vector3.UnitY, V = Vector3.UnitZ
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(-0.5F, 0, 0), U = Vector3.UnitY, V = Vector3.UnitZ
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0.5F, 0), Strength = 1, U = Vector3.UnitZ, V = Vector3.UnitX
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0.5F, 0), U = Vector3.UnitZ, V = Vector3.UnitX
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, -0.5F, 0), Strength = 1, U = Vector3.UnitZ, V = Vector3.UnitX
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, -0.5F, 0), U = Vector3.UnitZ, V = Vector3.UnitX
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, 0.5F), Strength = 1, U = Vector3.UnitX, V = Vector3.UnitY
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, 0.5F), U = Vector3.UnitX, V = Vector3.UnitY
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, -0.5F), Strength = 1, U = Vector3.UnitX, V = Vector3.UnitY
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, -0.5F), U = Vector3.UnitX, V = Vector3.UnitY
                 }
             };
             Vector3 vPanels = new Vector3(10, 0, 0);
@@ -53,31 +53,31 @@ namespace CFDSharpClassLibraryTests.PotentialFlow.SourcePanelMethod
         public void CreateEquationMatrix_WithUnitCubeInput_CreatesTheCorrectLHS()
         {
             // Arrange
-            SourcePanel[] sourcePanels = new SourcePanel[6]
+            UnitStrengthRectangularSourcePanel[] sourcePanels = new UnitStrengthRectangularSourcePanel[6]
             {
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0.5F, 0, 0), Strength = 1, U = Vector3.UnitY, V = Vector3.UnitZ
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0.5F, 0, 0), U = Vector3.UnitY, V = Vector3.UnitZ
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(-0.5F, 0, 0), Strength = 1, U = Vector3.UnitY, V = Vector3.UnitZ
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(-0.5F, 0, 0), U = Vector3.UnitY, V = Vector3.UnitZ
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0.5F, 0), Strength = 1, U = Vector3.UnitZ, V = Vector3.UnitX
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0.5F, 0), U = Vector3.UnitZ, V = Vector3.UnitX
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, -0.5F, 0), Strength = 1, U = Vector3.UnitZ, V = Vector3.UnitX
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, -0.5F, 0), U = Vector3.UnitZ, V = Vector3.UnitX
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, 0.5F), Strength = 1, U = Vector3.UnitX, V = Vector3.UnitY
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, 0.5F), U = Vector3.UnitX, V = Vector3.UnitY
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, -0.5F), Strength = 1, U = Vector3.UnitX, V = Vector3.UnitY
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, -0.5F), U = Vector3.UnitX, V = Vector3.UnitY
                 }
             };
             Vector3 vPanels = new Vector3(10, 0, 0);
@@ -155,31 +155,31 @@ namespace CFDSharpClassLibraryTests.PotentialFlow.SourcePanelMethod
         public void CreateEquationMatrix_WithUnitCubeInput_CreatesTheCorrectRHS()
         {
             // Arrange
-            SourcePanel[] sourcePanels = new SourcePanel[6]
+            UnitStrengthRectangularSourcePanel[] sourcePanels = new UnitStrengthRectangularSourcePanel[6]
             {
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0.5F, 0, 0), Strength = 1, U = Vector3.UnitY, V = Vector3.UnitZ
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0.5F, 0, 0), U = Vector3.UnitY, V = Vector3.UnitZ
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(-0.5F, 0, 0), Strength = 1, U = Vector3.UnitY, V = Vector3.UnitZ
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(-0.5F, 0, 0), U = Vector3.UnitY, V = Vector3.UnitZ
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0.5F, 0), Strength = 1, U = Vector3.UnitZ, V = Vector3.UnitX
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0.5F, 0), U = Vector3.UnitZ, V = Vector3.UnitX
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, -0.5F, 0), Strength = 1, U = Vector3.UnitZ, V = Vector3.UnitX
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, -0.5F, 0), U = Vector3.UnitZ, V = Vector3.UnitX
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, 0.5F), Strength = 1, U = Vector3.UnitX, V = Vector3.UnitY
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, 0.5F), U = Vector3.UnitX, V = Vector3.UnitY
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, -0.5F), Strength = 1, U = Vector3.UnitX, V = Vector3.UnitY
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, -0.5F), U = Vector3.UnitX, V = Vector3.UnitY
                 }
             };
             Vector3 vPanels = new Vector3(10, 0, 0);
@@ -214,31 +214,31 @@ namespace CFDSharpClassLibraryTests.PotentialFlow.SourcePanelMethod
         public void SolveForRequiredSourcePanelStrengths_WithUnitCubeInput_SatisfiesTheTangentialFlowConstraint()
         {
             // Arrange
-            SourcePanel[] sourcePanels = new SourcePanel[6]
+            UnitStrengthRectangularSourcePanel[] sourcePanels = new UnitStrengthRectangularSourcePanel[6]
             {
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0.5F, 0, 0), Strength = 1, U = Vector3.UnitY, V = Vector3.UnitZ
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0.5F, 0, 0), U = Vector3.UnitY, V = Vector3.UnitZ
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(-0.5F, 0, 0), Strength = 1, U = Vector3.UnitY, V = Vector3.UnitZ
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(-0.5F, 0, 0), U = Vector3.UnitY, V = Vector3.UnitZ
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0.5F, 0), Strength = 1, U = Vector3.UnitZ, V = Vector3.UnitX
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0.5F, 0), U = Vector3.UnitZ, V = Vector3.UnitX
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, -0.5F, 0), Strength = 1, U = Vector3.UnitZ, V = Vector3.UnitX
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, -0.5F, 0), U = Vector3.UnitZ, V = Vector3.UnitX
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, 0.5F), Strength = 1, U = Vector3.UnitX, V = Vector3.UnitY
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, 0.5F), U = Vector3.UnitX, V = Vector3.UnitY
                 },
-                new SourcePanel
+                new UnitStrengthRectangularSourcePanel
                 {
-                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, -0.5F), Strength = 1, U = Vector3.UnitX, V = Vector3.UnitY
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, -0.5F), U = Vector3.UnitX, V = Vector3.UnitY
                 }
             };
             Vector3 vPanels = new Vector3(10, 0, 0);
