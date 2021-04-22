@@ -29,6 +29,7 @@ namespace CFDSharpClassLibraryBenchmarks
             _z = random.NextDouble() * MaxVal;
             _z0 = random.NextDouble() * MaxVal;
         }
+
         [Benchmark]
         public void GetStaticPressure()
         {

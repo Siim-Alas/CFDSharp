@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
 using CFDSharpClassLibraryBenchmarks.LinearAlgebra;
+using CFDSharpClassLibraryBenchmarks.PotentialFlow;
 
 namespace CFDSharpClassLibraryBenchmarks
 {
@@ -8,8 +9,8 @@ namespace CFDSharpClassLibraryBenchmarks
         static void Main(string[] args)
         {
             // BenchmarkRunner.Run<BernoullisPrincipleBenchmarks>();
-
-            BenchmarkRunner.Run<MatrixHelpersBenchmarks>();
+            // BenchmarkRunner.Run<MatrixHelpersBenchmarks>();
+            BenchmarkRunner.Run<VelocityBenchmarks>();
         }
     }
 }

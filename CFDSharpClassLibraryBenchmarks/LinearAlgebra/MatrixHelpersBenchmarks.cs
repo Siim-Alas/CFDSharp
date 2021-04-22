@@ -7,7 +7,7 @@ namespace CFDSharpClassLibraryBenchmarks.LinearAlgebra
 {
     public class MatrixHelpersBenchmarks
     {
-        private double[,] M;
+        private double[,] _M;
 
         [Params(500, 1000)]
         public int Rows { get; set; }
@@ -16,7 +16,7 @@ namespace CFDSharpClassLibraryBenchmarks.LinearAlgebra
         [GlobalSetup]
         public void GlobalSetup()
         {
-            M = new double[Rows, Columns];
+            _M = new double[Rows, Columns];
         }
         [IterationSetup]
         public void IterationSetup()
@@ -27,7 +27,7 @@ namespace CFDSharpClassLibraryBenchmarks.LinearAlgebra
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    M[i, j] = (random.NextDouble() - 0.5) * double.MaxValue;
+                    _M[i, j] = (random.NextDouble() - 0.5) * double.MaxValue;
                 }
             }
         }
@@ -36,22 +36,22 @@ namespace CFDSharpClassLibraryBenchmarks.LinearAlgebra
         public void FindFirstRowOfNonZeroElementInColumn()
         {
             int _ = MatrixHelpers.FindFirstRowOfNonZeroElementInColumn(
-                Columns / 2, M);
+                Columns / 2, _M);
         }
         [Benchmark]
         public void SolveWithGaussianElimination()
         {
-            double[] _ = MatrixHelpers.SolveWithGaussianElimination(ref M);
+            double[] _ = MatrixHelpers.SolveWithGaussianElimination(ref _M);
         }
         [Benchmark]
         public void SwapRows()
         {
-            MatrixHelpers.SwapRows(ref M, Rows / 10, Rows / 2);
+            MatrixHelpers.SwapRows(ref _M, Rows / 10, Rows / 2);
         }
         [Benchmark]
         public void TransformInPlaceToRowEchelonForm()
         {
-            MatrixHelpers.TransformInPlaceToRowEchelonForm(ref M, out Stack<(int, int)> _);
+            MatrixHelpers.TransformInPlaceToRowEchelonForm(ref _M, out Stack<(int, int)> _);
         }
     }
 }
