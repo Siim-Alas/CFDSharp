@@ -22,7 +22,7 @@ namespace CFDSharpClassLibrary.PotentialFlow.SourcePanelMethod
         /// negative far-field flow velocity).
         /// </param>
         /// <returns>The equation matrix.</returns>
-        private static double[,] CreateEquationMatrix(
+        public static double[,] CreateEquationMatrix(
             SourcePanel[] sourcePanels, Vector3 vPanels)
         {
             int rows = sourcePanels.Length;
@@ -49,20 +49,22 @@ namespace CFDSharpClassLibrary.PotentialFlow.SourcePanelMethod
             return equationMatrix;
         }
         /// <summary>
-        /// Mutates the strengths of the source panels in the given array such 
-        /// that the resulting flow is tangential to every panel's control 
-        /// point. Note that this assumes that all of the source panels have 
-        /// strength 1.
+        /// Solves for the source panel strengths required to guarantee
+        /// tangential flow at the centre of each rectangular source panel.
         /// </summary>
         /// <param name="sourcePanels">
         /// The array of source panels, all of which are assumed to have
-        /// strength 1, to be mutated.
+        /// strength 1.
         /// </param>
         /// <param name="vPanels">
         /// A vector representing the velocity vector of the panels (the
         /// negative far-field flow velocity).
         /// </param>
-        public static void MutateUnitStrengthSourcePanelArrayIntoSolution(
+        /// <returns>
+        /// An array whose each element corresponds to the required strength of
+        /// the source panel with that index.
+        /// </returns>
+        public static double[] SolveForRequiredSourcePanelStrengths(
             ref SourcePanel[] sourcePanels, Vector3 vPanels)
         {
             double[,] equationMatrix = 
@@ -71,10 +73,7 @@ namespace CFDSharpClassLibrary.PotentialFlow.SourcePanelMethod
             double[] sourcePanelStrengths = 
                 MatrixHelpers.SolveWithGaussianElimination(ref equationMatrix);
 
-            for (int i = 0; i < sourcePanels.Length; i++)
-            {
-                sourcePanels[i].Strength = (float)sourcePanelStrengths[i];
-            }
+            return sourcePanelStrengths;
         }
     }
 }

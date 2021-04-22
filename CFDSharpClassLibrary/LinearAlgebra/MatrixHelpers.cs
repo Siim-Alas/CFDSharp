@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CFDSharpClassLibrary.LinearAlgebra
 {
@@ -61,7 +62,8 @@ namespace CFDSharpClassLibrary.LinearAlgebra
                     nameof(M));
             }
 
-            TransformInPlaceToRowEchelonForm(ref M);
+            TransformInPlaceToRowEchelonForm(
+                ref M, out Stack<(int, int)> swappedRows);
 
             double[] solution = new double[rows];
             for (int i = rows - 1; i >= 0; i--)
@@ -72,6 +74,13 @@ namespace CFDSharpClassLibrary.LinearAlgebra
                     solution[i] -= solution[j] * M[i, j];
                 }
                 solution[i] /= M[i, i];
+            }
+
+            while (swappedRows.TryPop(out (int rowA, int rowB) swap))
+            {
+                double temp = solution[swap.rowA];
+                solution[swap.rowA] = solution[swap.rowB];
+                solution[swap.rowB] = temp;
             }
 
             return solution;
@@ -99,10 +108,14 @@ namespace CFDSharpClassLibrary.LinearAlgebra
         /// Note that this will mutate the matrix.
         /// </summary>
         /// <param name="M">The matrix to be transformed.</param>
-        public static void TransformInPlaceToRowEchelonForm(ref double[,] M)
+        /// <param name="swappedRows"></param>
+        public static void TransformInPlaceToRowEchelonForm(
+            ref double[,] M, out Stack<(int, int)> swappedRows)
         {
             int rows = M.GetLength(0);
             int columns = M.GetLength(1);
+
+            swappedRows = new Stack<(int, int)>();
 
             int i = 0;
             int j = 0;
@@ -119,6 +132,7 @@ namespace CFDSharpClassLibrary.LinearAlgebra
                 else if (firstRowWithNonZeroElement != i)
                 {
                     SwapRows(ref M, firstRowWithNonZeroElement, i);
+                    swappedRows.Push((firstRowWithNonZeroElement, i));
                 }
                 
                 for (int m = i + 1; m < rows; m++)

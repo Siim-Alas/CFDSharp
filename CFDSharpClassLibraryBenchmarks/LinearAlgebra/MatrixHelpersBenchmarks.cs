@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using CFDSharpClassLibrary.LinearAlgebra;
 using System;
+using System.Collections.Generic;
 
 namespace CFDSharpClassLibraryBenchmarks.LinearAlgebra
 {
@@ -50,7 +51,7 @@ namespace CFDSharpClassLibraryBenchmarks.LinearAlgebra
         [Benchmark]
         public void TransformInPlaceToRowEchelonForm()
         {
-            MatrixHelpers.TransformInPlaceToRowEchelonForm(ref M);
+            MatrixHelpers.TransformInPlaceToRowEchelonForm(ref M, out Stack<(int, int)> _);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CFDSharpClassLibrary.LinearAlgebra;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace CFDSharpClassLibraryTests.LinearAlgebra
 {
@@ -184,6 +185,26 @@ namespace CFDSharpClassLibraryTests.LinearAlgebra
             Assert.IsTrue(resultIsCorrect);
         }
         [TestMethod]
+        public void TransformInPlaceToRowEchelonForm_WithValidInput_ReportsRowSwapsCorrectly()
+        {
+            // Arrange
+            const int rows = 3;
+            const int columns = 4;
+
+            double[,] M = new double[rows, columns]
+            {
+                { 0, 1,  2,  3 },
+                { 4, 5,  6,  7 },
+                { 8, 9, 10, 11 }
+            };
+
+            // Act
+            MatrixHelpers.TransformInPlaceToRowEchelonForm(ref M, out Stack<(int, int)> swappedRows);
+
+            // Assert
+            Assert.AreEqual((1, 0), swappedRows.Pop());
+        }
+        [TestMethod]
         public void TransformInPlaceToRowEchelonForm_WithValidInput_TransformsCorrectly()
         {
             // Arrange
@@ -204,7 +225,7 @@ namespace CFDSharpClassLibraryTests.LinearAlgebra
             };
 
             // Act
-            MatrixHelpers.TransformInPlaceToRowEchelonForm(ref M);
+            MatrixHelpers.TransformInPlaceToRowEchelonForm(ref M, out Stack<(int, int)> _);
             bool transformedCorrectly = true;
             for (int i = 0; i < rows; i++)
             {
