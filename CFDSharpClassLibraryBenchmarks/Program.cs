@@ -10,7 +10,8 @@ namespace CFDSharpClassLibraryBenchmarks
         {
             // BenchmarkRunner.Run<BernoullisPrincipleBenchmarks>();
             // BenchmarkRunner.Run<MatrixHelpersBenchmarks>();
-            BenchmarkRunner.Run<VelocityBenchmarks>();
+            // BenchmarkRunner.Run<VelocityBenchmarks>();
+            BenchmarkRunner.Run<VelocityPotentialBenchmarks>();
         }
     }
 }
