@@ -210,5 +210,61 @@ namespace CFDSharpClassLibraryTests.PotentialFlow.SourcePanelMethod
             // Assert
             Assert.IsTrue(rhsIsCorrect);
         }
+        [TestMethod]
+        public void SolveForRequiredSourcePanelStrengths_WithUnitCubeInput_SatisfiesTheTangentialFlowConstraint()
+        {
+            // Arrange
+            SourcePanel[] sourcePanels = new SourcePanel[6]
+            {
+                new SourcePanel
+                {
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0.5F, 0, 0), Strength = 1, U = Vector3.UnitY, V = Vector3.UnitZ
+                },
+                new SourcePanel
+                {
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(-0.5F, 0, 0), Strength = 1, U = Vector3.UnitY, V = Vector3.UnitZ
+                },
+                new SourcePanel
+                {
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0.5F, 0), Strength = 1, U = Vector3.UnitZ, V = Vector3.UnitX
+                },
+                new SourcePanel
+                {
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, -0.5F, 0), Strength = 1, U = Vector3.UnitZ, V = Vector3.UnitX
+                },
+                new SourcePanel
+                {
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, 0.5F), Strength = 1, U = Vector3.UnitX, V = Vector3.UnitY
+                },
+                new SourcePanel
+                {
+                    AOver2 = 0.5F, BOver2 = 0.5F, Position = new Vector3(0, 0, -0.5F), Strength = 1, U = Vector3.UnitX, V = Vector3.UnitY
+                }
+            };
+            Vector3 vPanels = new Vector3(10, 0, 0);
+
+            // Act
+            double[] strengths = Solver.SolveForRequiredSourcePanelStrengths(sourcePanels, vPanels);
+
+            bool flowIsTangentialAtEachControlPoint = true;
+            for (int i = 0; i < sourcePanels.Length; i ++)
+            {
+                Vector3 surfaceNormal = Vector3.Cross(sourcePanels[i].U, sourcePanels[i].V);
+
+                Vector3 velocity = vPanels;
+                for (int j = 0; j < sourcePanels.Length; j++)
+                {
+                    velocity += (float)strengths[j] * Velocity.ComputeSteadyState(sourcePanels[i].Position, sourcePanels[j]);
+                }
+
+                if (Vector3.Dot(velocity, surfaceNormal) != 0)
+                {
+                    flowIsTangentialAtEachControlPoint = false;
+                }
+            }
+
+            // Assert
+            Assert.IsTrue(flowIsTangentialAtEachControlPoint);
+        }
     }
 }

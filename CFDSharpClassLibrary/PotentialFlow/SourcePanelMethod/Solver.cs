@@ -65,7 +65,7 @@ namespace CFDSharpClassLibrary.PotentialFlow.SourcePanelMethod
         /// the source panel with that index.
         /// </returns>
         public static double[] SolveForRequiredSourcePanelStrengths(
-            ref SourcePanel[] sourcePanels, Vector3 vPanels)
+            SourcePanel[] sourcePanels, Vector3 vPanels)
         {
             double[,] equationMatrix = 
                 CreateEquationMatrix(sourcePanels, vPanels);
