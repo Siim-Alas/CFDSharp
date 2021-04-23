@@ -52,8 +52,7 @@ namespace CFDSharpClassLibrary.PotentialFlow.SourcePanelMethod
         /// tangential flow at the centre of each rectangular source panel.
         /// </summary>
         /// <param name="sourcePanels">
-        /// The array of source panels, all of which are assumed to have
-        /// strength 1.
+        /// The array of source panels.
         /// </param>
         /// <param name="vPanels">
         /// A vector representing the velocity vector of the panels (the
@@ -63,7 +62,7 @@ namespace CFDSharpClassLibrary.PotentialFlow.SourcePanelMethod
         /// An array whose each element corresponds to the required strength of
         /// the source panel with that index.
         /// </returns>
-        public static double[] SolveForRequiredSourcePanelStrengths(
+        public static double[] SolveForSourcePanelStrengths(
             UnitStrengthRectangularSourcePanel[] sourcePanels, Vector3 vPanels)
         {
             double[,] equationMatrix = 

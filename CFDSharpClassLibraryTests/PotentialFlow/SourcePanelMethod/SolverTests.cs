@@ -211,7 +211,7 @@ namespace CFDSharpClassLibraryTests.PotentialFlow.SourcePanelMethod
             Assert.IsTrue(rhsIsCorrect);
         }
         [TestMethod]
-        public void SolveForRequiredSourcePanelStrengths_WithUnitCubeInput_SatisfiesTheTangentialFlowConstraint()
+        public void SolveForSourcePanelStrengths_WithUnitCubeInput_SatisfiesTheTangentialFlowConstraint()
         {
             // Arrange
             UnitStrengthRectangularSourcePanel[] sourcePanels = new UnitStrengthRectangularSourcePanel[6]
@@ -244,7 +244,7 @@ namespace CFDSharpClassLibraryTests.PotentialFlow.SourcePanelMethod
             Vector3 vPanels = new Vector3(10, 0, 0);
 
             // Act
-            double[] strengths = Solver.SolveForRequiredSourcePanelStrengths(sourcePanels, vPanels);
+            double[] strengths = Solver.SolveForSourcePanelStrengths(sourcePanels, vPanels);
 
             bool flowIsTangentialAtEachControlPoint = true;
             for (int i = 0; i < sourcePanels.Length; i ++)
